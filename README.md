@@ -60,8 +60,8 @@ This centralized system enables efficient student registration, company manageme
 
 ## 📄 Documentation
 
-- 📘 [Software Requirements Specification (SRS)](docs/srs.pdf)
-- 🧩 [System Design Document](docs/design.pdf)
+- 📘 [Software Requirements Specification (SRS)](Docs/srs.pdf)
+- 🧩 [System Design Document](Docs/design.pdf)
 
 ---
 
