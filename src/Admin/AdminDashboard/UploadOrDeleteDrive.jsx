@@ -150,13 +150,13 @@ const handleSubmit = async (e) => {
 
           {/* Training Package */}
       <div className="mb-6">
-        <label className="text-[#005f69] font-semibold">Training Package (₹):</label>
+        <label className="text-[#005f69] font-semibold">Training Package (₹)(LPA):</label>
         <input type="number" name="training_package" value={placementDriveData.training_package} onChange={handleChange} className="w-full text-gray-800 bg-white border border-[#005f69] rounded-lg focus:outline-none focus:ring focus:ring-blue-500 p-2" required min="0" />
       </div>
 
       {/* Permanent Package */}
       <div className="mb-6">
-        <label className="text-[#005f69] font-semibold">Permanent Package (₹):</label>
+        <label className="text-[#005f69] font-semibold">Permanent Package (₹)(LPA):</label>
 
         <input type="number" name="permanent_package" value={placementDriveData.permanent_package} onChange={handleChange} className="w-full text-gray-800 bg-white border border-[#005f69] rounded-lg focus:outline-none focus:ring focus:ring-blue-500 p-2" required min="0" />
 

@@ -11,6 +11,41 @@ const GetStudents = () => {
   const [selectedDrive, setSelectedDrive] = useState("");
   const [students, setStudents] = useState([]);
 
+
+
+const exportPlacedExcel = async (drive_id) => {
+    try {
+        const response = await axios.get(`http://localhost:3000/portal/drive-results/${drive_id}`);
+        let data = response.data;
+
+        if (!Array.isArray(data)) {
+            alert("Unexpected data format received!");
+            return;
+        }
+
+        // Filter only selected students
+        data = data.filter(student => student.result === "Selected");
+
+        if (data.length === 0) {
+            alert("No selected students available to download!");
+            return;
+        }
+
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Placed Students");
+
+        const fileName = `placed_students_drive_${drive_id}.xlsx`;
+        const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+        const fileData = new Blob([excelBuffer], { type: "application/octet-stream" });
+
+        saveAs(fileData, fileName);
+    } catch (error) {
+        console.log("Error in getting placed students' data for Excel:", error);
+    }
+};
+
+
   const exportToExcel = async (drive_id) => {
     try {
       const response = await axios.get(`http://localhost:3000/portal/Getstudents/${drive_id}`);
@@ -102,7 +137,7 @@ const GetStudents = () => {
            
             
           <div className="flex flex-col gap-4 w-full">
-  <div className="grid grid-cols-2 gap-4 w-full">
+  <div className="flex gap-7 w-full">
     <button
   onClick={() => exportToExcel(drive.drive_id)}
   className="w-full px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 flex items-center justify-center gap-2"
@@ -121,17 +156,39 @@ const GetStudents = () => {
       d="M12 4v12m0 0l-3-3m3 3l3-3M6 20h12"
     />
   </svg>
-  Download
+  Applied
 </button>
 
-                <button
+  <button
+  onClick={() => exportPlacedExcel(drive.drive_id)}
+  className="w-full px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 flex items-center justify-center gap-2"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 4v12m0 0l-3-3m3 3l3-3M6 20h12"
+    />
+  </svg>
+  placed
+                </button>
+                
+
+                 <button
                   onClick={() =>
                     navigate(`/Admin-dashboard/Drives/${drive.drive_id}`, { state: { drive } })
                   
                   }
                   className="px-6 py-3 w-full bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300">
       More Details
-    </button>
+                </button>
    
   </div>
   

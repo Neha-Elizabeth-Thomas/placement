@@ -61,6 +61,7 @@ const MyApplication = () => {
               <div className="text-center">
                 <h2 className="text-2xl font-semibold mb-2">{company.company_name}</h2>
                 <p className="text-lg font-medium"><strong>Role:</strong> {company.job_role}</p>
+                <p className="text-lg font-medium"><strong>Type:</strong> {company.drive_type}</p>
                 <p className="text-gray-700 mb-4">{company.description}</p>
                 <p className="text-gray-800 font-medium">
                   <strong>Location:</strong> {company.work_location}
